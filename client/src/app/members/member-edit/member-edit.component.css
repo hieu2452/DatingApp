@@ -14,9 +14,14 @@
     border-top: none;
 }
 
+.mat-mdc-tab-group{
+    height: 100%;
+}
 
-.ngx-gallery {
-    display: inline-block;
-    margin-top: 20px;
-    margin-bottom: 20px;
+.mat-mdc-tab-body-wrapper {
+    height: 100%;
+}
+
+.mat-mdc-tab-body-content {
+    overflow: hidden !important;
 }

@@ -6,7 +6,7 @@ import {
   HttpInterceptor,
   HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, catchError } from 'rxjs';
+import { Observable, catchError, delay } from 'rxjs';
 import { NavigationExtras, Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
