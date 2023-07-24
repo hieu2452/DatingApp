@@ -18,7 +18,7 @@
                 </div>
                 <div>
                     <strong>Member since:</strong>
-                    <p>{{member.created}}</p> 
+                    <p>{{member.created}}</p>
                 </div>
             </div>
             <div class="card-footer">
@@ -37,13 +37,13 @@
         <mat-tab-group [disablePagination]="true" mat-stretch-tabs="true" mat-align-tabs="start">
             <div>
                 <mat-tab label="About {{member.knownAs}}">
-                    <h4>Description</h4>
+                    <strong>Description</strong>
                     <p>{{member.introduction}}</p>
-                    <h4>Looking for</h4>
+                    <strong>Looking for</strong>
                     <p>{{member.lookingFor}}</p>
                 </mat-tab>
                 <mat-tab label="Interests">
-                    <h4>Interests</h4>
+                    <strong>Interests</strong>
                     <p>{{member.interests}}</p>
                 </mat-tab>
                 <mat-tab label="Photos">

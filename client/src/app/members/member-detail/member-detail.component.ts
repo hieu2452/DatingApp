@@ -14,7 +14,7 @@ export class MemberDetailComponent implements OnInit {
   member: Member | undefined;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
-
+  photoIndex: number | undefined;
   constructor(private memberService: MembersService, private route: ActivatedRoute) {
 
   }
@@ -29,9 +29,14 @@ export class MemberDetailComponent implements OnInit {
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
+        preview: false,
+        startIndex: this.photoIndex
       }
     ];
+  }
+
+  getPhotoIndex(member: Member): number {
+    return member.photos.findIndex(x => x.isMain)
   }
 
   loadMember() {
@@ -40,7 +45,8 @@ export class MemberDetailComponent implements OnInit {
     this.memberService.getMember(username).subscribe({
       next: user => {
         this.member = user;
-        this.galleryImages = this.getImages()
+        this.galleryImages = this.getImages();
+        this.photoIndex = this.getPhotoIndex(this.member);
       }
     })
   }

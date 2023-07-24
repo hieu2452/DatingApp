@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { take } from 'rxjs';
@@ -29,6 +29,7 @@ export class MemberEditComponent implements OnInit {
     })
   }
 
+
   ngOnInit(): void {
     this.loadMember();
   }
@@ -36,19 +37,30 @@ export class MemberEditComponent implements OnInit {
   loadMember() {
     if (!this.user) return;
     this.memberService.getMember(this.user.username).subscribe({
-      next: member => this.member = member
+      next: member => {
+        this.member = member;
+      }
     })
   }
 
+  // updateMember() {
+  //   this.memberService.updateMember(this.editForm?.value).subscribe({
+  //     next: () => {
+  //       this.toastr.success('succes');
+  //       this.editForm?.reset(this.member);
+  //     },
+  //     error: () => this.toastr.error('Something wrong')
+  //   })
+  // }
+
   updateMember() {
-    this.memberService.updateMember(this.editForm?.value).subscribe({
+    this.memberService.updateMemberTest(this.editForm?.value,this.member!.id).subscribe({
       next: () => {
-        this.toastr.success('succes'); 
+        this.toastr.success('succes');
         this.editForm?.reset(this.member);
       },
       error: () => this.toastr.error('Something wrong')
     })
-
   }
 
 

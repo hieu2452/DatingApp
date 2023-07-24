@@ -35,10 +35,27 @@ export class MembersService {
     return this.http.put(this.baseUrl + 'users', member).pipe(
       map(() => {
         const index = this.members.indexOf(member);
-        this.members[index] = {...this.members[index],...member}
-
+        this.members[index] = { ...this.members[index], ...member }
       })
     );
+  }
+  updateMemberTest(member: Member, id: number) {
+    return this.http.put(this.baseUrl + 'users', member).pipe(
+      map(() => {
+        const i = this.members.findIndex(x => x.id == id);
+        console.log(this.members[i]);
+        this.members[i] = { ...this.members[i], ...member }
+        console.log(this.members[i]);
+      })
+    );
+  }
+
+  setMainPhoto(photoId: Number) {
+    return this.http.put(this.baseUrl + 'users/set-main-photo/' + photoId, {});
+  }
+
+  deletePhoto(photoId: Number) {
+    return this.http.delete(this.baseUrl + 'users/delete-photo/' + photoId);
   }
 
 }

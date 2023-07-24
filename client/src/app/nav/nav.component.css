@@ -1,12 +1,7 @@
- 
-.mat-mdc-select-arrow {
-    color: white !important;
-}
-.cdk-overlay-container {
-    padding-left: 400px;
-}
-/* .cdk-overlay-pane{
-    width: 100px !important;
-} */
-/* .cdk-overlay-pane  {  transform:none !important;  }  */
-
+ img {
+     max-height: 50px;
+     border: 2px solid white;
+     display: inline;
+     border-radius: 50%;
+     margin-right: 5px;
+ }

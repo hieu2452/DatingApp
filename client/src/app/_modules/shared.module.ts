@@ -6,6 +6,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { FileUploadModule } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [],
@@ -14,9 +15,10 @@ import { NgxSpinnerModule } from 'ngx-spinner';
     MatTabsModule,
     BrowserAnimationsModule,
     NgxGalleryModule,
+    FileUploadModule,
     MatProgressSpinnerModule,
     NgxSpinnerModule.forRoot({
-      type:'ball-spin-clockwise'
+      type: 'ball-spin-clockwise'
     }),
     ToastrModule.forRoot({
       positionClass: 'toast-bottom-right',
@@ -29,6 +31,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
       MatTabsModule,
       NgxGalleryModule,
       MatProgressSpinnerModule,
-      NgxSpinnerModule]
+      NgxSpinnerModule,
+      FileUploadModule]
 })
 export class SharedModule { }

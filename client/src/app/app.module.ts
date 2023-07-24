@@ -4,7 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AccountService } from './_services/account.service';
 import { DropdownDirective } from './directives/dropdown.directive';
 import { HomeComponent } from './home/home.component';
@@ -48,7 +48,8 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
   ],
   providers: [AccountService,
     { provide: HTTP_INTERCEPTORS, multi: true, useClass: ErrorInterceptor },
