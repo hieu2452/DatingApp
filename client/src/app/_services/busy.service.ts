@@ -6,25 +6,15 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class BusyService {
 
-  busyRequestCount = 0;
+  private loading: boolean = false;
 
-  constructor(private spinnerService: NgxSpinnerService) { }
+  constructor() { }
 
-  busy() {
-    this.busyRequestCount++;
-    this.spinnerService.show(undefined, {
-      type: 'ball-spin-clockwise',
-      bdColor: 'rgba(255, 255, 255, 0)',
-      color: 'black'
-    })
+  setLoading(loading: boolean) {
+    this.loading = loading;
   }
 
-  idle() {
-    this.busyRequestCount--;
-    if (this.busyRequestCount <= 0) {
-      this.busyRequestCount = 0;
-      this.spinnerService.hide();
-    }
+  getLoading(): boolean {
+    return this.loading;
   }
-
 }

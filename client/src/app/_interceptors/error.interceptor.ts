@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   if (error.error.errors[key]) {
                     modelStateErrors.push(error.error.errors[key]);
                   }
-                }
+                 }
 
                 throw modelStateErrors.flat();
               } else {

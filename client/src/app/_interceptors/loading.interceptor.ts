@@ -10,16 +10,21 @@ import { BusyService } from '../_services/busy.service';
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
+  private totalRequests = 0;
 
-  constructor(private busyService: BusyService) { }
+  constructor(private loadingService: BusyService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.busyService.busy();
+    this.totalRequests++;
+    this.loadingService.setLoading(true);
 
     return next.handle(request).pipe(
-      delay(500),
+      delay(400),
       finalize(() => {
-        this.busyService.idle();
+        this.totalRequests--;
+        if (this.totalRequests == 0) {
+          this.loadingService.setLoading(false);
+        }
       })
     );
   }

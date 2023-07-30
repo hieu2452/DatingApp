@@ -7,7 +7,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [],
   imports: [
@@ -17,6 +19,8 @@ import { FileUploadModule } from 'ng2-file-upload';
     NgxGalleryModule,
     FileUploadModule,
     MatProgressSpinnerModule,
+    MatDatepickerModule,
+    MatInputModule, NgxPaginationModule,
     NgxSpinnerModule.forRoot({
       type: 'ball-spin-clockwise'
     }),
@@ -32,6 +36,9 @@ import { FileUploadModule } from 'ng2-file-upload';
       NgxGalleryModule,
       MatProgressSpinnerModule,
       NgxSpinnerModule,
-      FileUploadModule]
+      FileUploadModule,
+      MatDatepickerModule,
+      MatInputModule,
+      NgxPaginationModule]
 })
 export class SharedModule { }

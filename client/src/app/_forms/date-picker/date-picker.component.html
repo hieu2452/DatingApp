@@ -1,0 +1,6 @@
+<div class="mb-3">
+    <input type="date" class="form-control" [class.is-invalid]="control.touched && control.invalid"
+        placeholder="{{label}}" max='{{maxDate}}' [formControl]="control">
+
+    <div class="invalid-feedback" *ngIf="control.errors?.['required']">Please enter {{label}}</div>
+</div>

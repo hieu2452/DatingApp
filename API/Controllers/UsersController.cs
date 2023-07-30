@@ -1,8 +1,10 @@
 using System.Security.Claims;
+using System.Text.Json;
 using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -26,10 +28,21 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDTO>>> GetUsers()
+        public async Task<ActionResult<PagedList<MemberDTO>>> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _userRepository.GetMembersAsync();
-            // var members = _mapper.Map<IEnumerable<MemberDTO>>(users);
+            var currentUsername = await _userRepository.GetUserByUsernameAsync(User.GetUsername());
+            userParams.CurrentUsername = currentUsername.UserName;
+
+            if (string.IsNullOrEmpty(userParams.Gender))
+            {
+                userParams.Gender = currentUsername.Gender == "male" ? "female" : "male";
+            }
+
+            var users = await _userRepository.GetMembersAsync(userParams);
+            // var jsonOptions = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            // Response.Headers.Add("Pagination", JsonSerializer.Serialize(new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages), jsonOptions));
+            // Response.Headers.Add("Access-Control-Expose-Headers", "Pagination");
+            Response.AddPaginationHeader(new PaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages));
             return Ok(users);
         }
 
@@ -130,7 +143,7 @@ namespace API.Controllers
             if (photo.PublicId != null)
             {
                 var result = await _photoService.DeletePhotoAsync(photo.PublicId);
-                if(result.Error != null) return  BadRequest(result.Error.Message);
+                if (result.Error != null) return BadRequest(result.Error.Message);
 
             }
 
