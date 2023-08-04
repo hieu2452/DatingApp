@@ -27,7 +27,6 @@ import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +46,8 @@ import { SpinnerComponent } from './spinner/spinner.component';
     PhotoEditorComponent,
     TextInputComponent,
     DatePickerComponent,
-    SpinnerComponent
+    SpinnerComponent,
+
   ],
   imports: [
     BrowserModule,

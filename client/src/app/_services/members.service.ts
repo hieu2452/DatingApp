@@ -13,23 +13,33 @@ export class MembersService {
 
   baseUrl = environment.apiUrl;
   members: Member[] = [];
+  memberChe = new Map();
 
   constructor(private http: HttpClient) { }
 
   getMembers(userParams: UserParams) {
 
+    const response = this.memberChe.get(Object.values(userParams).join('-'));
+
+    if (response) return of(response);
+
     let params = this.getPaginationHeader(userParams.pageNumber, userParams.pageSize);
     params = params.append('minAge', userParams.minAge);
     params = params.append('maxAge', userParams.maxAge);
     params = params.append('gender', userParams.gender);
-
-    return this.getPaginationResult<Member[]>(this.baseUrl + 'users', params);
+    params = params.append('orderBy', userParams.orderBy);
+    console.log(userParams.orderBy)
+    return this.getPaginationResult<Member[]>(this.baseUrl + 'users', params).pipe(
+      map(response => {
+        this.memberChe.set(Object.values(userParams).join('-'), response)
+        return response;
+      })
+    );
   }
 
   private getPaginationResult<T>(url: string, params: HttpParams) {
 
     const paginatedResult: PaginationResult<T> = new PaginationResult<T>;
-
     return this.http.get<T>(url, { observe: 'response', params }).pipe(
       map(response => {
         if (response.body) {
@@ -52,8 +62,10 @@ export class MembersService {
   }
 
   getMember(username: string) {
-    const member = this.members.find(x => x.userName === username);
+    const member = [...this.memberChe.values()].reduce((arr, elem) => arr.concat(elem.result), [])
+      .find((member: Member) => member.userName === username);
     if (member) return of(member);
+
     return this.http.get<Member>(this.baseUrl + 'users/' + username);
   }
 

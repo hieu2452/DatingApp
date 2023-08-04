@@ -46,7 +46,7 @@ export class MemberDetailComponent implements OnInit {
       next: user => {
         this.member = user;
         this.galleryImages = this.getImages();
-        this.photoIndex = this.getPhotoIndex(this.member);
+        this.photoIndex = this.getPhotoIndex(this.member!);
       }
     })
   }

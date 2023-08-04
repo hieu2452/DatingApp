@@ -6,18 +6,12 @@
     <form #form="ngForm" class="d-flex mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
         <div class="d-flex mx-2">
             <label class="col-form-label">Age from:</label>
-            <input type="number" 
-                class="form-control ms-1" 
-                style="width: 70px;" 
-                name="minAge"
+            <input type="number" class="form-control ms-1" style="width: 70px;" name="minAge"
                 [(ngModel)]="userParams.minAge">
         </div>
         <div class="d-flex mx-2">
             <label class="col-form-label">Age to:</label>
-            <input type="number" 
-                class="form-control ms-1"  
-                style="width: 70px;" 
-                name="maxAge"
+            <input type="number" class="form-control ms-1" style="width: 70px;" name="maxAge"
                 [(ngModel)]="userParams.maxAge">
         </div>
         <div class="d-flex px-2">
@@ -29,14 +23,35 @@
             </select>
         </div>
 
+
+        <div class="col">
+            <div class="btn-group float-end">
+                <input type="radio" class="btn-check" ng-control="options" [value]="'lastActive'" name="orderBy"
+                    [(ngModel)]="userParams.orderBy" id="btnradio1" checked>
+                <label class="btn btn-danger" for="btnradio1">Last Active</label>
+
+                <input type="radio" class="btn-check" ng-control="options" [value]="'created'" name="orderBy"
+                    [(ngModel)]="userParams.orderBy" id="btnradio2">
+                <label class=" btn btn-danger" for="btnradio2">Newest Member</label>
+            </div>
+        </div>
         <button class="btn btn-primary ms-1" type="submit">Apply Filters</button>
         <button (click)="resetFilters()" class="btn btn-danger ms-1" type="submit">Reset Filters</button>
+        <!-- <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group"
+            [(ngModel)]="userParams.orderBy">
+            <mat-radio-button class="example-radio-button" *ngFor="let status of statuses" [value]="status">
+                {{sta}}
+            </mat-radio-button>
+        </mat-radio-group> -->
     </form>
+
+
+
 </div>
 
 <div class="row">
     <div class="col-2"
-        *ngFor="let member of members | paginate: { itemsPerPage: userParams?.pageSize, currentPage: userParams?.pageNumber,totalItems: pagination?.totalItems}">
+        *ngFor="let member of members | paginate: { itemsPerPage: pagination?.itemsPerPage, currentPage: pagination?.currentPage,totalItems: pagination?.totalItems}">
         <app-member-card [member]="member"></app-member-card>
     </div>
 </div>

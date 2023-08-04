@@ -10,6 +10,10 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatRadioModule } from '@angular/material/radio';
+import { TimeagoFormatter, TimeagoModule } from "ngx-timeago";
+import { TimeAgoFormatter } from '../_pipes/TimeAgoFormatter';
+
 @NgModule({
   declarations: [],
   imports: [
@@ -20,6 +24,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FileUploadModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
+    MatRadioModule,
     MatInputModule, NgxPaginationModule,
     NgxSpinnerModule.forRoot({
       type: 'ball-spin-clockwise'
@@ -28,6 +33,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
       positionClass: 'toast-bottom-right',
       easing: 'easing',
       tapToDismiss: true
+    }),
+    TimeagoModule.forRoot({
+      formatter: { provide: TimeagoFormatter, useClass: TimeAgoFormatter },
     }),
   ],
   exports:
@@ -39,6 +47,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
       FileUploadModule,
       MatDatepickerModule,
       MatInputModule,
-      NgxPaginationModule]
+      NgxPaginationModule,
+      MatRadioModule, TimeagoModule]
 })
 export class SharedModule { }
