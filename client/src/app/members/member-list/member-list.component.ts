@@ -21,17 +21,11 @@ export class MemberListComponent implements OnInit {
   userParams: UserParams | undefined;
   user: User | undefined;
   // statuses = ['lastActive','created'];
-  genderList = [{value:'male',display:'Males'}, {value:'female',display:'Females'}]
+  genderList = [{ value: 'male', display: 'Males' }, { value: 'female', display: 'Females' }]
 
-  constructor(private memberService: MembersService, private accountService: AccountService) {
-    this.accountService.currentUser$.pipe(take(1)).subscribe({
-      next: user => {
-        if (user) {
-          this.userParams = new UserParams(user);
-          this.user = user;
-        }
-      }
-    })
+  constructor(private memberService: MembersService) {
+    // this.user = this.memberService.getUser()
+    this.userParams = this.memberService.getUserParams();
   }
 
   ngOnInit(): void {
@@ -41,28 +35,30 @@ export class MemberListComponent implements OnInit {
 
   loadMembers() {
     // console.log(this.userParams)
-    if (!this.userParams) return;
-
-    this.memberService.getMembers(this.userParams).subscribe({
-      next: (response: PaginationResult<Member[]>) => {
-        if (response.result && response.pagination) {
-          this.members = response.result;
-          this.pagination = response.pagination;
+    if (this.userParams) {
+      this.memberService.setUserParams(this.userParams);
+      this.memberService.getMembers(this.userParams).subscribe({
+        next: (response: PaginationResult<Member[]>) => {
+          if (response.result && response.pagination) {
+            this.members = response.result;
+            this.pagination = response.pagination;
+          }
         }
-      }
-    })
+      })
+    }
+
+
   }
 
-  resetFilters(){
-    if(this.user){
-      this.userParams = new UserParams(this.user);
-      this.loadMembers();
-    }
+  resetFilters() {
+    this.userParams = this.memberService.resetUserParams();
+    this.loadMembers();
   }
 
   change(e: any) {
     if (this.userParams?.pageNumber != e && this.userParams) {
       this.userParams.pageNumber = e;
+      this.memberService.setUserParams(this.userParams);
       this.loadMembers();
     }
 
