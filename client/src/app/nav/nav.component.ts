@@ -22,9 +22,8 @@ export class NavComponent implements OnInit {
 
   login() {
     this.accountService.login(this.model).subscribe({
-      next: (yuser) => {
+      next: () => {
         // this.router.navigate(['/members'])
-        console.log(yuser)
         this.router.navigateByUrl('/members')
       }
     })

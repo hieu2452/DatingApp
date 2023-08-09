@@ -1,1 +1,27 @@
-<p>lists works!</p>
+<div class="text-center mt-3">
+    <h2>{{predicate === 'liked' ? 'Members i like' : 'Members who like me'}}</h2>
+</div>
+
+<div class="container mt-3">
+    <div class="d-flex">
+        <div class="btn-group">
+            <input type="radio" class="btn-check" ng-control="options" [value]="'liked'" name="predicate"
+                [(ngModel)]="predicate" id="btnradio1" checked (click)="loadlikes('liked')">
+            <label class="btn btn-danger" for="btnradio1">Members i like</label>
+
+            <input type="radio" class="btn-check" ng-control="options" [value]="'likedBy'" name="predicate"
+                [(ngModel)]="predicate" id="btnradio2" (click)="loadlikes('likedBy')">
+            <label class=" btn btn-danger" for="btnradio2">Members who like me</label>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-2"
+            *ngFor="let member of members | paginate: { itemsPerPage: pagination?.itemsPerPage, currentPage: pagination?.currentPage,totalItems: pagination?.totalItems}">
+            <app-member-card [member]=" member"></app-member-card>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center my-pagination" *ngIf="pagination">
+        <pagination-controls (pageChange)="change($event)"></pagination-controls>
+    </div>
+</div>
