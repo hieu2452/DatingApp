@@ -1,6 +1,5 @@
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Unicode;
 using API.Data;
 using API.DTOs;
 using API.Entities;

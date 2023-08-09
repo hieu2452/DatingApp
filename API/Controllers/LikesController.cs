@@ -40,8 +40,8 @@ namespace API.Controllers
                 TargetUser = LikedUsers,
                 TargetUserId = LikedUsers.Id
             };
-
-            sourceUser.LikedUsers.Add(userLike);
+            _likeRepository.AddLike(userLike);
+            // sourceUser.LikedUsers.Add(userLike);
 
             if (await _userRepository.SaveAllAsync()) return Ok();
 

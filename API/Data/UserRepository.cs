@@ -25,6 +25,7 @@ namespace API.Data
 
         public async Task<MemberDTO> GetMemberAsync(string username)
         {
+
             return await _context.Users
                         .Where(x => x.UserName == username)
                         .ProjectTo<MemberDTO>(_mapper.ConfigurationProvider)
