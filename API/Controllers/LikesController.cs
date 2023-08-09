@@ -36,6 +36,8 @@ namespace API.Controllers
             userLike = new UserLike
             {
                 SourceUserId = sourceUserId,
+                SourceUser = sourceUser,
+                TargetUser = LikedUsers,
                 TargetUserId = LikedUsers.Id
             };
 
