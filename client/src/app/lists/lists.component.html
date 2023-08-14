@@ -21,7 +21,7 @@
             <app-member-card [member]=" member"></app-member-card>
         </div>
     </div>
-    <div class="d-flex justify-content-center my-pagination" *ngIf="pagination">
+    <div class="d-flex justify-content-center my-pagination" *ngIf="pagination && members.length > 0">
         <pagination-controls (pageChange)="change($event)"></pagination-controls>
     </div>
 </div>

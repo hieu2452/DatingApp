@@ -6,14 +6,16 @@ import { MessageService } from '../_services/message.service';
 @Component({
   selector: 'app-messages',
   templateUrl: './messages.component.html',
-  styleUrls: ['./messages.component.css']
+  styleUrls: ['./messages.component.css'],
+  
 })
 export class MessagesComponent implements OnInit {
-  messages?: Message[];
+  messages: Message[] = [];
   pagination?: Pagination;
-  container = 'Inbox';
+  container = 'Unread';
   pageNumber = 1;
   pageSize = 5;
+  loading = true;
 
   constructor(private messageService: MessageService) { }
 
@@ -24,9 +26,11 @@ export class MessagesComponent implements OnInit {
   loadMessages(container: string) {
     this.messageService.getMessages(this.pageNumber, this.pageSize, container).subscribe({
       next: response => {
-        this.messages = response.result;
-        this.pagination = response.pagination;
-        console.log(response)
+        if (response.result && response.pagination) {
+          this.messages = response.result;
+          this.pagination = response.pagination;
+          this.loading = false ;
+        }
       }
     })
   }
