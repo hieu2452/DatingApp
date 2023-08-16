@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Extensions;
 
 namespace API.Entities
 {
     public class Message
     {
-        public int Id { get; set; } 
+        public int Id { get; set; }
         public int SenderId { get; set; }
         public string SenderUsername { get; set; }
         public AppUser Sender { get; set; }
@@ -16,7 +17,7 @@ namespace API.Entities
         public AppUser Recipient { get; set; }
         public string Content { get; set; }
         public DateTime? DateRead { get; set; }
-        public DateTime MessageSent { get; set; } = DateTime.UtcNow;
+        public DateTime MessageSent { get; set; } = DateTime.UtcNow.CurrentDateTime();
         public bool SenderDeleted { get; set; }
         public bool RecipentDeleted { get; set; }
     }

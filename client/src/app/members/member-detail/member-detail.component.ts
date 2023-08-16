@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/_models/member';
@@ -11,6 +12,7 @@ import { MembersService } from 'src/app/_services/members.service';
   encapsulation: ViewEncapsulation.None
 })
 export class MemberDetailComponent implements OnInit {
+  tabindex: number = 0;
   member: Member | undefined;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
@@ -21,6 +23,13 @@ export class MemberDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadMember()
+
+    this.route.queryParams.subscribe({
+      next: params => {
+        if (params['tab'] === 'messages')
+          this.tabindex = 3;
+      }
+    })
 
     this.galleryOptions = [
       {

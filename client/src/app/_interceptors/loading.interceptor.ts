@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, delay, finalize } from 'rxjs';
 import { BusyService } from '../_services/busy.service';
-
+export const InterceptorSkipHeader = 'X-Skip-Interceptor';
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
   private totalRequests = 0;
@@ -15,6 +15,15 @@ export class LoadingInterceptor implements HttpInterceptor {
   constructor(private loadingService: BusyService) { }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (request.headers.has('IgnoreInterceptor')) {
+
+      const newHeaders = request.headers.delete('IgnoreInterceptor');
+      request = request.clone({ headers: newHeaders });
+
+
+      return next.handle(request);
+    }
+
     this.totalRequests++;
     this.loadingService.setLoading(true);
 

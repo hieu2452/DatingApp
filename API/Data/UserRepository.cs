@@ -53,7 +53,6 @@ namespace API.Data
                 query.AsNoTracking().ProjectTo<MemberDTO>(_mapper.ConfigurationProvider),
                 userParams.pageNumber,
                 userParams.PageSize);
-
         }
 
         public async Task<IEnumerable<AppUser>> GetUserAsync()

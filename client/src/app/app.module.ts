@@ -26,6 +26,7 @@ import { PhotoEditorComponent } from './members/photo-editor/photo-editor.compon
 import { TextInputComponent } from './_forms/text-input/text-input.component';
 import { DatePickerComponent } from './_forms/date-picker/date-picker.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { MemberMesssagesComponent } from './members/member-messsages/member-messsages.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     TextInputComponent,
     DatePickerComponent,
     SpinnerComponent,
+    MemberMesssagesComponent,
 
   ],
   imports: [

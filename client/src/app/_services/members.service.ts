@@ -24,7 +24,6 @@ export class MembersService {
     this.accountService.currentUser$.pipe(take(1)).subscribe({
       next: user => {
         if (user) {
-          console.log(user)
           this.userParams = new UserParams(user);
           this.user = user;
         }
