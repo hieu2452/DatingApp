@@ -27,7 +27,7 @@ export class ErrorInterceptor implements HttpInterceptor {
                   if (error.error.errors[key]) {
                     modelStateErrors.push(error.error.errors[key]);
                   }
-                 }
+                }
 
                 throw modelStateErrors.flat();
               } else {
@@ -46,11 +46,10 @@ export class ErrorInterceptor implements HttpInterceptor {
               break;
             default:
               this.toastr.error('Something wrong');
-              console.log(error);
               break;
           }
         }
-        
+
         throw error;
       })
     );

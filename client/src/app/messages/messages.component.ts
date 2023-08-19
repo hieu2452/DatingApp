@@ -7,7 +7,7 @@ import { MessageService } from '../_services/message.service';
   selector: 'app-messages',
   templateUrl: './messages.component.html',
   styleUrls: ['./messages.component.css'],
-  
+
 })
 export class MessagesComponent implements OnInit {
   messages: Message[] = [];
@@ -15,7 +15,7 @@ export class MessagesComponent implements OnInit {
   container = 'Unread';
   pageNumber = 1;
   pageSize = 5;
-  loading = true;
+  loading = false;
 
   constructor(private messageService: MessageService) { }
 
@@ -24,13 +24,22 @@ export class MessagesComponent implements OnInit {
   }
 
   loadMessages(container: string) {
+    this.loading = true;
     this.messageService.getMessages(this.pageNumber, this.pageSize, container).subscribe({
       next: response => {
         if (response.result && response.pagination) {
           this.messages = response.result;
           this.pagination = response.pagination;
-          this.loading = false ;
+          this.loading = false;
         }
+      }
+    })
+  }
+
+  deleteMessage(id: number) {
+    this.messageService.deleteMessage(id).subscribe({
+      next: () => {
+        this.messages.splice(this.messages.findIndex(m => m.id == id), 1);
       }
     })
   }

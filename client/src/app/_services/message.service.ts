@@ -27,4 +27,8 @@ export class MessageService {
     const headers = new HttpHeaders().set('IgnoreInterceptor', '');
     return this.http.post<Message>(this.baseUrl + 'messages', { recipientUsername: username, content: content }, { headers });
   }
+
+  deleteMessage(id: number) {
+    return this.http.delete(this.baseUrl + 'messages/' + id);
+  }
 }

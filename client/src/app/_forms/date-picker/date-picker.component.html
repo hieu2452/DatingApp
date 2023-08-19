@@ -1,0 +1,10 @@
+<div class="mb-3"> 
+    <input type="date"
+        max="{{maxDate}}"
+        class="form-control"
+        [class.is-invalid]="control.touched && control.invalid"
+        placeholder="{{label}}"
+        [formControl]="control"
+    >
+    <div class="invalid-feedback" *ngIf="control.errors?.['underAge']">You must be 18 years old or older</div>
+</div>
