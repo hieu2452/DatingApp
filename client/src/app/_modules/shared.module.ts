@@ -13,6 +13,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MatRadioModule } from '@angular/material/radio';
 import { TimeagoFormatter, TimeagoModule } from "ngx-timeago";
 import { TimeAgoFormatter } from '../_pipes/TimeAgoFormatter';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [],
@@ -37,6 +38,7 @@ import { TimeAgoFormatter } from '../_pipes/TimeAgoFormatter';
     TimeagoModule.forRoot({
       formatter: { provide: TimeagoFormatter, useClass: TimeAgoFormatter },
     }),
+    MatDialogModule
   ],
   exports:
     [ToastrModule,

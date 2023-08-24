@@ -24,7 +24,6 @@ namespace API.Controllers
             _userRepository = userRepository;
         }
 
-        [Authorize(Roles = "Admin")]
         [HttpGet]
         public async Task<ActionResult<PagedList<MemberDTO>>> GetUsers([FromQuery] UserParams userParams)
         {
