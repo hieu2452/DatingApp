@@ -2,8 +2,12 @@ import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { MembersService } from 'src/app/_services/members.service';
+import { MessageService } from 'src/app/_services/message.service';
 import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
@@ -18,8 +22,11 @@ export class MemberDetailComponent implements OnInit {
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
   photoIndex: number | undefined;
-  constructor(private memberService: MembersService, private route: ActivatedRoute, public presenceService: PresenceService) {
+  user?: User;
 
+  constructor(private memberService: MembersService,
+    private route: ActivatedRoute,
+    public presenceService: PresenceService,) {
   }
 
   ngOnInit(): void {
@@ -27,8 +34,10 @@ export class MemberDetailComponent implements OnInit {
 
     this.route.queryParams.subscribe({
       next: params => {
-        if (params['tab'] === 'messages')
+        if (params['tab'] === 'messages') {
           this.tabindex = 3;
+        }
+
       }
     })
 
@@ -57,6 +66,7 @@ export class MemberDetailComponent implements OnInit {
         this.member = user;
         this.galleryImages = this.getImages();
         this.photoIndex = this.getPhotoIndex(this.member!);
+
       }
     })
   }

@@ -111,6 +111,6 @@ export class MembersService {
     let params = getPaginationHeader(pageNumber, pageSize);
     params = params.append('predicate', predicate);
     return getPaginationResult<Member[]>(this.baseUrl + 'likes', params, this.http)
-  }
+  } 
 
 }

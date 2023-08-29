@@ -35,11 +35,12 @@ export class PresenceService {
     })
 
     this.hubConntection.on('GetOnlineUser', usernames => {
+      
       this.onlineUsersSource.next(usernames);
     })
 
     this.hubConntection.on('GetOfflineUser', usernames => {
-      this.onlineUsersSource.next([]);
+      this.onlineUsersSource.next(usernames);
     })
   }
 

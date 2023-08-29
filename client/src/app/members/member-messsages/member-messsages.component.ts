@@ -1,6 +1,9 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { take } from 'rxjs';
 import { Message } from 'src/app/_models/message';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { MessageService } from 'src/app/_services/message.service';
 
 @Component({
@@ -8,16 +11,37 @@ import { MessageService } from 'src/app/_services/message.service';
   templateUrl: './member-messsages.component.html',
   styleUrls: ['./member-messsages.component.css']
 })
-export class MemberMesssagesComponent implements OnInit {
+export class MemberMesssagesComponent implements OnInit, OnDestroy {
   @ViewChild('messageForm') messageForm?: NgForm
   @Input() username?: string;
   messages: Message[] = [];
   messageContent = '';
+  user?: User;
 
-  constructor(private messageService: MessageService) { }
+  constructor(public messageService: MessageService,
+    private accountSerive: AccountService) {
+    this.accountSerive.currentUser$.pipe(take(1)).subscribe({
+      next: user => {
+        if (user) {
+          this.user = user
+        }
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.stopHubConntection();
+  }
 
   ngOnInit(): void {
     this.loadMessages();
+    this.onHubConnected();
+  }
+
+  onHubConnected() {
+    if (this.user && this.username) {
+      this.messageService.createHubConnection(this.user, this.username);
+    }
   }
 
   loadMessages() {
@@ -31,12 +55,9 @@ export class MemberMesssagesComponent implements OnInit {
   }
 
   sendMessage() {
-    if(!this.username) return;
-    this.messageService.sendMessage(this.username,this.messageContent).subscribe({
-      next: message => {
-        this.messages.push(message);
+    if (!this.username) return;
+    this.messageService.sendMessage(this.username, this.messageContent).then(() => {
         this.messageForm?.reset();
-      }
     })
   }
 }
