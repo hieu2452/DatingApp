@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { take } from 'rxjs';
 import { Member } from 'src/app/_models/member';
@@ -26,7 +26,9 @@ export class MemberDetailComponent implements OnInit {
 
   constructor(private memberService: MembersService,
     private route: ActivatedRoute,
-    public presenceService: PresenceService,) {
+    public presenceService: PresenceService,
+    private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
