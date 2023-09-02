@@ -42,7 +42,7 @@ export class UserManagementComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if(result.event === 'cancel') return;
       const selectedRoles = result.data.selectedRoles;
-      console.log(selectedRoles)
+
       if (!this.arrayEqual(selectedRoles, user.roles)) {
         this.adminService.updateUserRoles(user.username, selectedRoles.join(',')).subscribe({
           next: roles => user.roles = roles
